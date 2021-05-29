@@ -17,23 +17,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try {
-            SQLiteDatabase database = this.openOrCreateDatabase("Events", MODE_PRIVATE, null);
+            SQLiteDatabase database = this.openOrCreateDatabase("Users", MODE_PRIVATE, null);
 
-            database.execSQL("CREATE TABLE IF NOT EXISTS events (name VARCHAR, year INT(4))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS users (name VARCHAR, age INT(4))");
 
-            database.execSQL("INSERT INTO users(name,year) VALUES('Ramadan',2021)");
-            database.execSQL("INSERT INTO users(name,year) VALUES('Eid AL-Fetr',2021)");
+            database.execSQL("INSERT INTO users(name,age) VALUES('Hamza',36)");
+            database.execSQL("INSERT INTO users(name,age) VALUES('Ahmed',37)");
 
-            Cursor cursor = database.rawQuery("SELECT * FROM events", null);
+            Cursor cursor = database.rawQuery("SELECT * FROM users", null);
 
             int nameIndex = cursor.getColumnIndex("name");
-            int yearIndex = cursor.getColumnIndex("year");
+            int ageIndex = cursor.getColumnIndex("age");
 
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
-                Log.i("event name:", cursor.getString(nameIndex));
-                Log.i("event year:", cursor.getString(yearIndex));
+                Log.i("name:", cursor.getString(nameIndex));
+                Log.i("age:", Integer.toString(cursor.getInt(ageIndex)));
 
                 cursor.moveToNext();
             }
